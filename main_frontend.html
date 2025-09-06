@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eldora - Medication Reminder</title>
+    <style>
+        :root {
+            --primary-color: #6366F1;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --background: #FFFFFF;
+            --card-background: #FFFFFF;
+            --border-color: #E5E7EB;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.5;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 375px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .app-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .settings-icon {
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 20px 0;
+        }
+
+        /* Setting Cards */
+        .setting-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid #F3F4F6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .setting-card label {
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .value-box {
+            background: #F9FAFB;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .counter-control {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .counter-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: 1px solid #D1D5DB;
+            background: white;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .counter-btn:hover {
+            background: #F3F4F6;
+        }
+
+        .counter-value {
+            font-weight: 600;
+            color: var(--text-primary);
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .language-dropdown {
+            background: white;
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 14px;
+            color: var(--text-primary);
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin: 32px 0 16px 0;
+        }
+
+        .section-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Member Cards */
+        .member-list {
+            margin-bottom: 24px;
+        }
+
+        .member-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 8px;
+            box-shadow: var(--shadow);
+            border: 1px solid #F3F4F6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .member-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-name {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .arrow {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        /* Primary Button */
+        .primary-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 16px;
+        }
+
+        .primary-button:hover {
+            background: #5B5CE8;
+            transform: translateY(-1px);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            padding: 8px 0 20px;
+            z-index: 100;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #9CA3AF;
+            text-decoration: none;
+            padding: 8px;
+            transition: all 0.2s;
+        }
+
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+        }
+
+        .nav-label {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Page Content */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Medications Page */
+        .medication-form {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid #F3F4F6;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .time-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .time-chip {
+            background: #F3F4F6;
+            color: var(--text-secondary);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .time-chip.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Call Logs Page */
+        .call-log-item {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 8px;
+            box-shadow: var(--shadow);
+            border: 1px solid #F3F4F6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .call-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .call-member {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .call-medication {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .call-time {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .call-status {
+            font-size: 18px;
+        }
+
+        /* Profile Page */
+        .profile-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid #F3F4F6;
+        }
+
+        .profile-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .profile-item:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-switch {
+            width: 44px;
+            height: 24px;
+            background: #E5E7EB;
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .toggle-switch.active {
+            background: var(--primary-color);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.2s;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(20px);
+        }
+
+        /* Responsive */
+        @media (max-width: 375px) {
+            .container {
+                padding: 0 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="app-title">Eldora</h1>
+            <div class="settings-icon" onclick="showPage('settings')">⚙️</div>
+        </header>
+
+        <!-- Home/Settings Page -->
+        <div id="home" class="page active">
+            <main class="main-content">
+                <!-- Settings Cards -->
+                <div class="setting-card">
+                    <label>Total added members</label>
+                    <div class="value-box" id="memberCount">2</div>
+                </div>
+
+                <div class="setting-card">
+                    <label>No. of calls for one medication</label>
+                    <div class="counter-control">
+                        <button class="counter-btn" onclick="updateRetryCount(-1)">−</button>
+                        <span class="counter-value" id="retryCount">3</span>
+                        <button class="counter-btn" onclick="updateRetryCount(1)">+</button>
+                    </div>
+                </div>
+
+                <div class="setting-card">
+                    <label>Language (by default)</label>
+                    <select class="language-dropdown" id="languageSelect" onchange="updateLanguage()">
+                        <option value="en">English</option>
+                        <option value="hi">Hindi</option>
+                        <option value="es">Spanish</option>
+                    </select>
+                </div>
+
+                <!-- Member Section -->
+                <div class="section-header">
+                    <h3>Set your medication details for</h3>
+                </div>
+
+                <div class="member-list" id="memberList">
+                    <div class="member-card" onclick="selectMember(1)">
+                        <span class="member-name">Member 1</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <div class="member-card" onclick="selectMember(2)">
+                        <span class="member-name">Member 2</span>
+                        <span class="arrow">></span>
+                    </div>
+                </div>
+
+                <button class="primary-button" onclick="addMember()">+ Add member</button>
+            </main>
+        </div>
+
+        <!-- Medications Page -->
+        <div id="medications" class="page">
+            <main class="main-content">
+                <div class="section-header">
+                    <h3>Medication Management</h3>
+                </div>
+
+                <div class="medication-form">
+                    <div class="form-group">
+                        <label class="form-label">Member</label>
+                        <select class="form-input" id="memberSelect">
+                            <option>Member 1</option>
+                            <option>Member 2</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Medication Name</label>
+                        <input type="text" class="form-input" placeholder="Enter medication name" id="medicationName">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Dosage</label>
+                        <input type="text" class="form-input" placeholder="e.g., 1 tablet" id="dosage">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Reminder Times</label>
+                        <div class="time-chips">
+                            <div class="time-chip" onclick="toggleTime(this)">8:00 AM</div>
+                            <div class="time-chip" onclick="toggleTime(this)">12:00 PM</div>
+                            <div class="time-chip" onclick="toggleTime(this)">6:00 PM</div>
+                            <div class="time-chip" onclick="toggleTime(this)">10:00 PM</div>
+                        </div>
+                    </div>
+
+                    <button class="primary-button" onclick="saveMedication()">Save Medication</button>
+                </div>
+            </main>
+        </div>
+
+        <!-- Call Logs Page -->
+        <div id="call-logs" class="page">
+            <main class="main-content">
+                <div class="section-header">
+                    <h3>Today's Calls</h3>
+                </div>
+
+                <div class="call-log-item">
+                    <div class="call-info">
+                        <div class="call-member">Member 1</div>
+                        <div class="call-medication">Aspirin - 1 tablet</div>
+                        <div class="call-time">8:00 AM</div>
+                    </div>
+                    <div class="call-status">✅</div>
+                </div>
+
+                <div class="call-log-item">
+                    <div class="call-info">
+                        <div class="call-member">Member 2</div>
+                        <div class="call-medication">Blood pressure medication</div>
+                        <div class="call-time">12:00 PM</div>
+                    </div>
+                    <div class="call-status">❌</div>
+                </div>
+
+                <div class="call-log-item">
+                    <div class="call-info">
+                        <div class="call-member">Member 1</div>
+                        <div class="call-medication">Vitamin D</div>
+                        <div class="call-time">6:00 PM</div>
+                    </div>
+                    <div class="call-status">📞</div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profile" class="page">
+            <main class="main-content">
+                <div class="section-header">
+                    <h3>Settings</h3>
+                </div>
+
+                <div class="profile-section">
+                    <div class="profile-item">
+                        <span>High Contrast Mode</span>
+                        <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                    </div>
+                    <div class="profile-item">
+                        <span>Large Font Size</span>
+                        <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                    </div>
+                    <div class="profile-item">
+                        <span>Voice Confirmation</span>
+                        <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <div class="profile-item">
+                        <span>Export Data</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <div class="profile-item">
+                        <span>Help & Support</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <div class="profile-item">
+                        <span>About Eldora</span>
+                        <span class="arrow">></span>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" onclick="showPage('home')">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-label">Home</div>
+        </a>
+        <a href="#" class="nav-item" onclick="showPage('medications')">
+            <div class="nav-icon">💊</div>
+            <div class="nav-label">Medications</div>
+        </a>
+        <a href="#" class="nav-item" onclick="showPage('call-logs')">
+            <div class="nav-icon">📞</div>
+            <div class="nav-label">Call Logs</div>
+        </a>
+        <a href="#" class="nav-item" onclick="showPage('profile')">
+            <div class="nav-icon">👤</div>
+            <div class="nav-label">Profile</div>
+        </a>
+    </nav>
+
+    <script>
+        // App State
+        let appState = {
+            members: [
+                { id: 1, name: 'Member 1' },
+                { id: 2, name: 'Member 2' }
+            ],
+            retryCount: 3,
+            language: 'en',
+            medications: []
+        };
+
+        // Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Update nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.nav-item').classList.add('active');
+        }
+
+        // Update retry count
+        function updateRetryCount(delta) {
+            const current = parseInt(document.getElementById('retryCount').textContent);
+            const newCount = Math.max(1, Math.min(10, current + delta));
+            document.getElementById('retryCount').textContent = newCount;
+            appState.retryCount = newCount;
+
+            // API call would go here
+            console.log('Updated retry count to:', newCount);
+        }
+
+        // Update language
+        function updateLanguage() {
+            const language = document.getElementById('languageSelect').value;
+            appState.language = language;
+            console.log('Updated language to:', language);
+        }
+
+        // Select member for medication details
+        function selectMember(memberId) {
+            console.log('Selected member:', memberId);
+            showPage('medications');
+            document.getElementById('memberSelect').value = `Member ${memberId}`;
+        }
+
+        // Add new member
+        function addMember() {
+            const newMemberId = appState.members.length + 1;
+            appState.members.push({ id: newMemberId, name: `Member ${newMemberId}` });
+
+            // Update UI
+            document.getElementById('memberCount').textContent = appState.members.length;
+
+            // Add to member list
+            const memberList = document.getElementById('memberList');
+            const memberCard = document.createElement('div');
+            memberCard.className = 'member-card';
+            memberCard.onclick = () => selectMember(newMemberId);
+            memberCard.innerHTML = `
+                <span class="member-name">Member ${newMemberId}</span>
+                <span class="arrow">></span>
+            `;
+            memberList.appendChild(memberCard);
+        }
+
+        // Toggle time chip
+        function toggleTime(chip) {
+            chip.classList.toggle('active');
+        }
+
+        // Save medication
+        function saveMedication() {
+            const medication = {
+                member: document.getElementById('memberSelect').value,
+                name: document.getElementById('medicationName').value,
+                dosage: document.getElementById('dosage').value,
+                times: Array.from(document.querySelectorAll('.time-chip.active')).map(chip => chip.textContent)
+            };
+
+            if (medication.name && medication.dosage && medication.times.length > 0) {
+                appState.medications.push(medication);
+                console.log('Saved medication:', medication);
+
+                // Clear form
+                document.getElementById('medicationName').value = '';
+                document.getElementById('dosage').value = '';
+                document.querySelectorAll('.time-chip').forEach(chip => {
+                    chip.classList.remove('active');
+                });
+
+                alert('Medication saved successfully!');
+            } else {
+                alert('Please fill in all fields and select at least one time.');
+            }
+        }
+
+        // Toggle switch
+        function toggleSwitch(toggle) {
+            toggle.classList.toggle('active');
+        }
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set up event source for real-time updates (would connect to backend)
+            // const eventSource = new EventSource('http://localhost:3000/api/events/stream');
+            // eventSource.onmessage = function(event) {
+            //     const data = JSON.parse(event.data);
+            //     updateCallStatus(data);
+            // };
+
+            console.log('Eldora app initialized');
+        });
+
+        // Simulated API functions for backend integration
+        async function updateMemberCount() {
+            try {
+                // const response = await fetch('http://localhost:3000/api/family-members');
+                // const members = await response.json();
+                // document.getElementById('memberCount').textContent = members.length;
+                console.log('Member count updated');
+            } catch (error) {
+                console.error('Error updating member count:', error);
+            }
+        }
+
+        async function updateRetryCountAPI(count) {
+            try {
+                // await fetch('http://localhost:3000/api/settings/retry-count', {
+                //     method: 'PUT',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ retryCount: count })
+                // });
+                console.log('Retry count updated in backend:', count);
+            } catch (error) {
+                console.error('Error updating retry count:', error);
+            }
+        }
+    </script>
+</body>
+
+</html>
