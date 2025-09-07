@@ -41,12 +41,49 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px;
-            border-bottom: 1px solid var(--border-color);
-            background: white;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            margin-bottom: 1.5rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-greeting {
+            font-size: 1rem;
+            color: #4b5563;
+            font-weight: 500;
+        }
+
+        .logout-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            color: #4b5563;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .logout-button:hover {
+            background: #e5e7eb;
+        }
+
+        .logout-icon {
+            font-size: 1rem;
         }
 
         .app-title {
@@ -154,27 +191,49 @@
         }
 
         .member-card {
-            background: white;
-            border-radius: 12px;
-            padding: 16px 20px;
-            margin-bottom: 8px;
-            box-shadow: var(--shadow);
-            border: 1px solid #F3F4F6;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 16px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 12px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
+            border: 1px solid #E5E7EB;
         }
 
         .member-card:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-color: #D1D5DB;
+        }
+
+        .member-card.active {
+            border-left: 4px solid #3B82F6;
+            background-color: #F8FAFC;
+        }
+
+        .member-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
         .member-name {
-            font-size: 16px;
             font-weight: 500;
+            color: #111827;
+            font-size: 16px;
+        }
+
+        .member-relation {
+            font-size: 13px;
+            color: #6B7280;
+            background: #F3F4F6;
+            padding: 2px 8px;
+            border-radius: 10px;
+            display: inline-block;
+            width: fit-content;
             color: var(--text-primary);
         }
 
@@ -350,51 +409,820 @@
             background: white;
             border-radius: 12px;
             padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: var(--shadow);
-            border: 1px solid #F3F4F6;
+
+            .profile-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 0;
+                border-bottom: 1px solid #F3F4F6;
+            }
+
+            .profile-item:last-child {
+                border-bottom: none;
+            }
+
+            .toggle-switch {
+                width: 44px;
+                height: 24px;
+                background: #E5E7EB;
+                border-radius: 12px;
+                position: relative;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+
+            .toggle-switch.active {
+                background: var(--primary-color);
+            }
+
+            .toggle-switch::after {
+                content: '';
+                width: 20px;
+                height: 20px;
+                background: white;
+                border-radius: 50%;
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                transition: transform 0.2s;
+            }
+
+            .toggle-switch.active::after {
+                transform: translateX(20px);
+            }
+
+            /* Status Messages */
+            .status-message {
+                margin: 10px 0;
+                padding: 12px;
+                border-radius: 8px;
+                font-size: 14px;
+                text-align: center;
+                display: none;
+            }
+
+            .status-message.success {
+                background-color: #D1FAE5;
+                color: #065F46;
+                border: 1px solid #34D399;
+            }
+
+            .status-message.error {
+                background-color: #FEE2E2;
+                color: #B91C1C;
+                border: 1px solid #FCA5A5;
+            }
+
+            .status-message.info {
+                background-color: #DBEAFE;
+                color: #1E40AF;
+                border: 1px solid #93C5FD;
+            }
+
+            /* Form Styling */
+            form.setting-card {
+                margin-bottom: 16px;
+            }
+
+            form.setting-card .counter-control {
+                margin-top: 8px;
+            }
+
+            /* Medications List */
+            .medications-list {
+                margin-top: 8px;
+                display: grid;
+                gap: 16px;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+
+            .medication-item {
+                background: white;
+                border-radius: 12px;
+                padding: 20px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                border: 1px solid #E5E7EB;
+                transition: transform 0.2s, box-shadow 0.2s;
+            }
+
+            .medication-item:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .medication-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 12px;
+                gap: 12px;
+            }
+
+            .medication-name {
+                font-weight: 600;
+                color: #111827;
+                font-size: 18px;
+                margin: 0;
+                line-height: 1.3;
+            }
+
+            .medication-dosage {
+                font-size: 14px;
+                color: #4B5563;
+                background: #F9FAFB;
+                padding: 4px 10px;
+                border-radius: 6px;
+                white-space: nowrap;
+            }
+
+            .medication-details {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                margin: 12px 0;
+                font-size: 14px;
+                color: #6B7280;
+            }
+
+            .medication-member,
+            .medication-date {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .medication-member i,
+            .medication-date i {
+                color: #9CA3AF;
+                width: 16px;
+                text-align: center;
+            }
+
+            .medication-details {
+                display: flex;
+                gap: 16px;
+                margin-top: 8px;
+                font-size: 14px;
+                color: #4B5563;
+            }
+
+            .medication-times {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 8px;
+            }
+
+            .time-badge {
+                background: #EFF6FF;
+                color: #1E40AF;
+                padding: 4px 10px;
+                border-radius: 12px;
+                font-size: 13px;
+            }
+
+            .no-medications {
+                text-align: center;
+                color: #6B7280;
+                padding: 20px;
+                background: #F9FAFB;
+                border-radius: 8px;
+                border: 1px dashed #E5E7EB;
+            }
+
+            /* Loading and empty states */
+            .loading-state,
+            .empty-state {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 40px 20px;
+                text-align: center;
+                color: #6B7280;
+            }
+
+            .loading-state i,
+            .empty-state i {
+                font-size: 32px;
+                margin-bottom: 16px;
+                color: #9CA3AF;
+            }
+
+            .loading-state span {
+                margin-top: 8px;
+                font-size: 15px;
+                color: #4B5563;
+            }
+
+            .empty-state p {
+                margin: 12px 0 20px;
+                font-size: 16px;
+                color: #4B5563;
+                max-width: 280px;
+                line-height: 1.5;
+            }
+
+            .empty-state .primary-button {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                margin-top: 12px;
+            }
+
+            .empty-state .primary-button i {
+                font-size: 14px;
+                margin: 0;
+                color: white;
+            }
+
+            /* Error state */
+            .error-state i {
+                color: #EF4444 !important;
+            }
+
+            .error-state p {
+                color: #EF4444 !important;
+            }
+
+            .error-state .primary-button {
+                background-color: #EF4444;
+                border-color: #EF4444;
+            }
+
+            .error-state .primary-button:hover {
+                background-color: #DC2626;
+                border-color: #DC2626;
+            }
+
+            /* Auth Modals */
+            .modal {
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.6);
+                backdrop-filter: blur(5px);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .modal.show {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .auth-modal {
+                display: flex;
+                max-width: 900px;
+                width: 90%;
+                background: white;
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+                animation: slideUp 0.5s ease forwards;
+            }
+
+            .auth-illustration {
+                flex: 1;
+                background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+                color: white;
+                padding: 60px 40px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .auth-illustration::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                right: -50%;
+                width: 100%;
+                height: 200%;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+                transform: rotate(30deg);
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+
+            .logo-icon {
+                font-size: 32px;
+                margin-right: 12px;
+            }
+
+            .logo h1 {
+                font-size: 28px;
+                font-weight: 700;
+                margin: 0;
+                color: white;
+            }
+
+            .tagline {
+                font-size: 16px;
+                opacity: 0.9;
+                margin-bottom: 40px;
+            }
+
+            .illustration {
+                position: relative;
+                width: 200px;
+                height: 200px;
+                margin: 0 auto;
+            }
+
+            .pulse-dot {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.8);
+                animation: pulse 2s infinite;
+            }
+
+            .dot-1 {
+                width: 20px;
+                height: 20px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                animation-delay: 0s;
+            }
+
+            .dot-2 {
+                width: 40px;
+                height: 40px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0.6;
+                animation-delay: 0.3s;
+            }
+
+            .dot-3 {
+                width: 60px;
+                height: 60px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                transform: translateY(0);
+            }
         }
 
-        .profile-item {
+        .auth-form-container h2 {
+            font-size: 28px;
+            color: #1F2937;
+            margin-bottom: 8px;
+        }
+
+        .auth-subtitle {
+            color: #6B7280;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .auth-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .input-with-icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            color: #9CA3AF;
+            font-size: 18px;
+        }
+
+        .input-with-icon input {
+            width: 100%;
+            padding: 14px 16px 14px 45px;
+            border: 1px solid #E5E7EB;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .input-with-icon input:focus {
+            border-color: #6366F1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            outline: none;
+        }
+
+        .form-label-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #F3F4F6;
+            margin-bottom: 6px;
         }
 
-        .profile-item:last-child {
-            border-bottom: none;
+        .forgot-password {
+            font-size: 13px;
+            color: #6366F1;
+            text-decoration: none;
+            transition: color 0.2s;
         }
 
-        .toggle-switch {
-            width: 44px;
-            height: 24px;
-            background: #E5E7EB;
-            border-radius: 12px;
-            position: relative;
+        .forgot-password:hover {
+            color: #4F46E5;
+            text-decoration: underline;
+        }
+
+        .form-input {
+            transition: all 0.3s ease, box-shadow 0.2s ease;
+        }
+
+        .form-input:focus {
+            border-color: #6366F1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            outline: none;
+        }
+
+        .form-input.error {
+            border-color: #EF4444;
+            background-color: #FEF2F2;
+        }
+
+        .form-error {
+            color: #EF4444;
+            font-size: 13px;
+            margin-top: 4px;
+            min-height: 18px;
+            opacity: 0;
+            transform: translateY(-5px);
+            transition: opacity 0.3s ease, transform 0.3s ease, height 0.3s ease;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .form-error.show {
+            opacity: 1;
+            transform: translateY(0);
+            height: auto;
+            margin-top: 6px;
+            margin-bottom: 4px;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(-4px);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(4px);
+            }
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #6366F1;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease, transform 0.2s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .toggle-switch.active {
-            background: var(--primary-color);
+        .login-button:hover {
+            background: #4F46E5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }
 
-        .toggle-switch::after {
-            content: '';
+        .login-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(99, 102, 241, 0.4);
+        }
+
+        .login-button .spinner {
+            display: inline-block;
             width: 20px;
             height: 20px;
-            background: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            transition: transform 0.2s;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
         }
 
-        .toggle-switch.active::after {
-            transform: translateX(20px);
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #9CA3AF;
+            font-size: 14px;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #E5E7EB;
+        }
+
+        .auth-divider span {
+            padding: 0 15px;
+        }
+
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .social-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 10px;
+            background: white;
+            color: #374151;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .social-button:hover {
+            background: #F9FAFB;
+            border-color: #D1D5DB;
+        }
+
+        .social-button img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .social-button.apple i {
+            font-size: 20px;
+            color: #000;
+        }
+
+        .auth-links {
+            text-align: center;
+            color: #6B7280;
+            font-size: 15px;
+        }
+
+        .auth-links a {
+            color: #6366F1;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 5px;
+            transition: color 0.2s;
+        }
+
+        .auth-links a:hover {
+            color: #4F46E5;
+            text-decoration: underline;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                margin-top: 10px;
+            }
+        }
+
+        .login-button i {
+            transition: transform 0.3s ease;
+        }
+
+        .login-button:hover i {
+            transform: translateX(5px);
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #9CA3AF;
+            font-size: 14px;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #E5E7EB;
+        }
+
+        .auth-divider span {
+            padding: 0 15px;
+        }
+
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .social-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 10px;
+            background: white;
+            color: #374151;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .social-button:hover {
+            background: #F9FAFB;
+            border-color: #D1D5DB;
+        }
+
+        .social-button img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .social-button.apple i {
+            font-size: 20px;
+            color: #000;
+        }
+
+        .auth-links {
+            text-align: center;
+            color: #6B7280;
+            font-size: 15px;
+        }
+
+        .auth-links a {
+            color: #6366F1;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 5px;
+            transition: color 0.2s;
+        }
+
+        .auth-links a:hover {
+            color: #4F46E5;
+            text-decoration: underline;
+        }
+
+        @keyframes pulse {
+          0% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0.8;
+          }
+          70% {
+            transform: translate(-50%, -50%) scale(1.5);
+            opacity: 0;
+          }
+          100% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0;
+          }
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .modal h2 {
+            margin-top: 0;
+            color: #1f2937;
+            text-align: center;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .close:hover {
+            color: #1f2937;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .form-group input.error {
+            border-color: #ef4444;
+        }
+
+        .auth-links {
+            text-align: center;
+            margin-top: 1rem;
+            color: #6b7280;
+        }
+
+        .auth-links a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hide app content when not authenticated */
+        #appContent:not(.authenticated) {
+            display: none;
+        }
+
+        /* Show login modal by default */
+        #loginModal {
+            display: flex;
         }
 
         /* Responsive */
@@ -402,35 +1230,156 @@
             .container {
                 padding: 0 12px;
             }
+
+            .modal-content {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
+    <!-- Auth Modals -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content auth-modal">
+            <div class="auth-illustration">
+                <div class="logo">
+                    <span class="logo-icon">💊</span>
+                    <h1>Eldora</h1>
+                </div>
+                <p class="tagline">Your personal medication companion</p>
+                <div class="illustration">
+                    <div class="pulse-dot dot-1"></div>
+                    <div class="pulse-dot dot-2"></div>
+                    <div class="pulse-dot dot-3"></div>
+                </div>
+            </div>
+            <div class="auth-form-container">
+                <button class="close" aria-label="Close">&times;</button>
+                <h2>Welcome Back</h2>
+                <p class="auth-subtitle">Sign in to continue to your account</p>
+
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="loginEmail" placeholder="Enter your email" required
+                                autocomplete="username" class="form-input">
+                        </div>
+                        <div class="form-error" id="emailError"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-row">
+                            <label for="loginPassword">Password</label>
+                            <a href="#" class="forgot-password">Forgot password?</a>
+                        </div>
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="loginPassword" placeholder="Enter your password" required
+                                autocomplete="current-password" class="form-input">
+                            <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="form-error" id="passwordError"></div>
+                    </div>
+                    <button type="submit" class="primary-button login-button">
+                        <span class="button-text">Sign In</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+
+                <div class="social-login">
+                    <button class="social-button google">
+                        <img src="https://www.google.com/favicon.ico" alt="Google">
+                        <span>Continue with Google</span>
+                    </button>
+                    <button class="social-button apple">
+                        <i class="fab fa-apple"></i>
+                        <span>Continue with Apple</span>
+                    </button>
+                </div>
+
+                <div class="auth-links">
+                    Don't have an account? <a href="#" id="showSignup">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create Account</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" minlength="6" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" minlength="6" required>
+                </div>
+                <button type="submit" class="primary-button">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" id="appContent" style="display: none;">
         <!-- Header -->
         <header class="header">
-            <h1 class="app-title">Eldora</h1>
-            <div class="settings-icon" onclick="showPage('settings')">⚙️</div>
+            <div class="header-left">
+                <h1 class="app-title">Eldora</h1>
+                <div id="userGreeting" class="user-greeting"></div>
+            </div>
+            <div class="header-right">
+                <button id="logoutBtn" class="logout-button" style="display: none;">
+                    <span class="logout-icon">🚪</span> Logout
+                </button>
+                <div class="settings-icon" onclick="showPage('settings')">⚙️</div>
+            </div>
         </header>
 
         <!-- Home/Settings Page -->
         <div id="home" class="page active">
             <main class="main-content">
+                <!-- Status Message -->
+                <div id="statusMessage" class="status-message"
+                    style="display: none; margin-bottom: 16px; padding: 10px; border-radius: 4px; text-align: center;">
+                </div>
+
                 <!-- Settings Cards -->
                 <div class="setting-card">
                     <label>Total added members</label>
-                    <div class="value-box" id="memberCount">2</div>
+                    <div class="value-box" id="memberCount">0</div>
                 </div>
 
-                <div class="setting-card">
-                    <label>No. of calls for one medication</label>
+                <form id="retryCountForm" class="setting-card">
+                    <label for="retryCountInput">No. of calls for one medication</label>
                     <div class="counter-control">
-                        <button class="counter-btn" onclick="updateRetryCount(-1)">−</button>
-                        <span class="counter-value" id="retryCount">3</span>
-                        <button class="counter-btn" onclick="updateRetryCount(1)">+</button>
+                        <button type="button" class="counter-btn" onclick="updateRetryCount(-1)">−</button>
+                        <input type="number" id="retryCountInput" class="counter-value" value="3" min="1" max="10"
+                            style="text-align: center; border: none; background: transparent; width: 30px;" />
+                        <button type="button" class="counter-btn" onclick="updateRetryCount(1)">+</button>
                     </div>
-                </div>
+                    <button type="submit" style="display: none;">Save</button>
+                </form>
 
                 <div class="setting-card">
                     <label>Language (by default)</label>
@@ -447,17 +1396,32 @@
                 </div>
 
                 <div class="member-list" id="memberList">
-                    <div class="member-card" onclick="selectMember(1)">
-                        <span class="member-name">Member 1</span>
+                    <div class="member-card" data-member-id="1" onclick="selectMember(1)">
+                        <div class="member-info">
+                            <span class="member-name">Member 1</span>
+                            <span class="member-relation">Self</span>
+                        </div>
                         <span class="arrow">></span>
                     </div>
-                    <div class="member-card" onclick="selectMember(2)">
-                        <span class="member-name">Member 2</span>
+                    <div class="member-card" data-member-id="2" onclick="selectMember(2)">
+                        <div class="member-info">
+                            <span class="member-name">Member 2</span>
+                            <span class="member-relation">Spouse</span>
+                        </div>
                         <span class="arrow">></span>
                     </div>
                 </div>
 
                 <button class="primary-button" onclick="addMember()">+ Add member</button>
+
+                <!-- Added Medications Section -->
+                <div class="section-header" style="margin-top: 32px;">
+                    <h3>Your Medications</h3>
+                </div>
+                <div id="medicationsList" class="medications-list">
+                    <!-- Medications will be dynamically added here -->
+                    <div class="no-medications">No medications added yet</div>
+                </div>
             </main>
         </div>
 
@@ -470,10 +1434,18 @@
 
                 <div class="medication-form">
                     <div class="form-group">
-                        <label class="form-label">Member</label>
-                        <select class="form-input" id="memberSelect">
-                            <option>Member 1</option>
-                            <option>Member 2</option>
+                        <label for="memberName">Member Name</label>
+                        <input type="text" id="memberName" class="form-control" placeholder="Enter member name"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="memberRelation">Relation</label>
+                        <select id="memberRelation" class="form-control">
+                            <option value="self">Myself</option>
+                            <option value="spouse">Spouse</option>
+                            <option value="child">Child</option>
+                            <option value="parent">Parent</option>
+                            <option value="other">Other</option>
                         </select>
                     </div>
 
@@ -599,43 +1571,487 @@
     </nav>
 
     <script>
-        // App State
-        let appState = {
-            members: [
-                { id: 1, name: 'Member 1' },
-                { id: 2, name: 'Member 2' }
-            ],
-            retryCount: 3,
-            language: 'en',
-            medications: []
+        // Auth Service
+        const authService = {
+            // Initialize auth state
+            initAuth() {
+                try {
+                    const token = localStorage.getItem('authToken');
+                    const userJson = localStorage.getItem('user');
+                    
+                    if (token && userJson) {
+                        const user = JSON.parse(userJson);
+                        // Verify token is not expired
+                        const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+                        const isTokenExpired = tokenPayload.exp * 1000 < Date.now();
+                        
+                        if (!isTokenExpired) {
+                            this.user = user;
+                            this.isAuthenticated = true;
+                            // Initialize app data if authenticated
+                            initializeApp();
+                        } else {
+                            // Clear expired token
+                            this.logout();
+                        }
+                    } else {
+                        this.user = null;
+                        this.isAuthenticated = false;
+                    }
+                } catch (error) {
+                    console.error('Error initializing auth:', error);
+                    // Clear invalid auth data
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('user');
+                    this.user = null;
+                    this.isAuthenticated = false;
+                }
+                
+                this.updateUI();
+            },
+            getCurrentUser() {
+                const user = localStorage.getItem('user');
+                return user ? JSON.parse(user) : null;
+            },
+
+            // Login
+            async login(email, password) {
+                try {
+                    const response = await fetch('http://localhost:3000/api/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        // Handle specific error cases
+                        if (response.status === 401) {
+                            throw new Error('Invalid email or password');
+                        } else if (response.status === 400) {
+                            const errorMsg = data.details ? data.details.join(', ') : data.message;
+                            throw new Error(errorMsg || 'Invalid request');
+                        } else {
+                            throw new Error(data.message || 'Login failed. Please try again.');
+                        }
+                    }
+
+                    if (!data.token || !data.user) {
+                        throw new Error('Invalid response from server');
+                    }
+
+                    // Store token and user data
+                    localStorage.setItem('authToken', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+
+                    return data.user;
+                } catch (error) {
+                    console.error('Login error:', error);
+                    throw error;
+                }
+            },
+
+            // Signup
+            async signup(userData) {
+                try {
+                    const response = await fetch('http://localhost:3000/api/auth/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(userData)
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(data.message || 'Signup failed');
+                    }
+
+                    // Store token and user data
+                    localStorage.setItem('authToken', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+
+                    return data.user;
+                } catch (error) {
+                    console.error('Signup error:', error);
+                    throw error;
+                }
+            },
+
+            // Logout
+            logout() {
+                try {
+                    // Clear all auth-related data from localStorage
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('user');
+                    
+                    // Clear any app-specific data if needed
+                    // Example: localStorage.removeItem('appState');
+                    
+                    // Return a resolved promise for async operations
+                    return Promise.resolve();
+                } catch (error) {
+                    console.error('Error during logout:', error);
+                    return Promise.reject(error);
+                }
+            },
+
+            // Get auth header
+            getAuthHeader: function () {
+                const token = localStorage.getItem('authToken');
+                return token ? { 'Authorization': `Bearer ${token}` } : {};
+            }
         };
 
-        // Navigation
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
+        // Initialize app state
+        const appState = {
+            members: [],
+            selectedMemberId: null,
+            language: 'en',
+            settings: {
+                notifications: true,
+                theme: 'light'
+            },
+            // Authentication state
+            user: null,
+            isAuthenticated: false,
 
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
+            // Initialize auth state
+            initAuth() {
+                try {
+                    const token = localStorage.getItem('authToken');
+                    const userJson = localStorage.getItem('user');
+                    
+                    if (token && userJson) {
+                        const user = JSON.parse(userJson);
+                        
+                        // Simple token validation (basic check for expiration)
+                        try {
+                            const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+                            const isTokenExpired = tokenPayload.exp * 1000 < Date.now();
+                            
+                            if (!isTokenExpired) {
+                                this.user = user;
+                                this.isAuthenticated = true;
+                                // Initialize app data if authenticated
+                                if (typeof initializeApp === 'function') {
+                                    initializeApp();
+                                }
+                                return;
+                            }
+                        } catch (e) {
+                            console.error('Token validation error:', e);
+                        }
+                    }
+                    
+                    // Clear invalid or expired auth data
+                    this.user = null;
+                    this.isAuthenticated = false;
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('user');
+                } catch (error) {
+                    console.error('Error initializing auth:', error);
+                    this.user = null;
+                    this.isAuthenticated = false;
+                } finally {
+                    this.updateUI();
+                }
+            },
 
-            // Update nav items
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            event.target.closest('.nav-item').classList.add('active');
+            // Update UI based on auth state
+            updateUI() {
+                const appContent = document.getElementById('appContent');
+                const loginModal = document.getElementById('loginModal');
+                const signupModal = document.getElementById('signupModal');
+                const logoutBtn = document.getElementById('logoutBtn');
+                const userGreeting = document.getElementById('userGreeting');
+
+                if (this.isAuthenticated) {
+                    // Show app content and hide auth modals
+                    appContent.style.display = 'block';
+                    loginModal.style.display = 'none';
+                    signupModal.style.display = 'none';
+
+                    // Update user greeting and show logout button
+                    if (this.user) {
+                        if (userGreeting) {
+                            userGreeting.textContent = `Hello, ${this.user.name || 'User'}`;
+                            userGreeting.style.display = 'block';
+                        }
+                        if (logoutBtn) {
+                            logoutBtn.style.display = 'flex';
+                        }
+                    }
+
+                    // Initialize the rest of the app
+                    initializeApp();
+                    updateMemberCount();
+                } else {
+                    // Show login modal and hide app content
+                    appContent.style.display = 'none';
+                    loginModal.style.display = 'flex';
+
+                    // Clear any existing user data
+                    if (userGreeting) {
+                        userGreeting.textContent = '';
+                        userGreeting.style.display = 'none';
+                    }
+                    if (logoutBtn) {
+                        logoutBtn.style.display = 'none';
+                    }
+                }
+            },
+
+            // Login
+            async login(email, password) {
+                try {
+                    // Clear any previous auth data
+                    this.user = null;
+                    this.isAuthenticated = false;
+                    
+                    // Call the auth service
+                    this.user = await authService.login(email, password);
+                    this.isAuthenticated = true;
+                    
+                    // Update UI to reflect logged-in state
+                    this.updateUI();
+                    
+                    // Show success message
+                    showStatus('Login successful!', 'success');
+                    
+                    // Initialize app data
+                    initializeApp();
+                    
+                    return true;
+                } catch (error) {
+                    // Clear auth data on error
+                    this.user = null;
+                    this.isAuthenticated = false;
+                    this.updateUI();
+                    
+                    // Show error message
+                    showStatus(error.message || 'Login failed. Please try again.', 'error');
+                    
+                    // Re-throw the error to be handled by the form submission
+                    throw error;
+                }
+            },
+
+            // Signup
+            async signup(userData) {
+                try {
+                    this.user = await authService.signup(userData);
+                    this.isAuthenticated = true;
+                    this.updateUI();
+                    showStatus('Account created successfully!', 'success');
+                    return true;
+                } catch (error) {
+                    showStatus(error.message || 'Signup failed', 'error');
+                    return false;
+                }
+            },
+
+            // Logout
+            async logout() {
+                try {
+                    // Call the auth service to clean up
+                    await authService.logout();
+                    
+                    // Clear local state
+                    this.user = null;
+                    this.isAuthenticated = false;
+                    
+                    // Update UI to reflect logged out state
+                    this.updateUI();
+                    
+                    // Show login modal
+                    const loginModal = document.getElementById('loginModal');
+                    if (loginModal) {
+                        loginModal.style.display = 'flex';
+                        document.body.classList.add('modal-open');
+                    }
+                    
+                    // Show logged out message
+                    showStatus('You have been logged out', 'info');
+                    
+                } catch (error) {
+                    console.error('Logout error:', error);
+                    showStatus('Error during logout', 'error');
+                }
+            },
+            
+            // Update UI based on auth state
+            updateUI() {
+                const appContent = document.getElementById('appContent');
+                const loginModal = document.getElementById('loginModal');
+                const signupModal = document.getElementById('signupModal');
+                const logoutBtn = document.getElementById('logoutBtn');
+                const userGreeting = document.getElementById('userGreeting');
+
+                if (this.isAuthenticated) {
+                    // Show app content and hide auth modals
+                    if (appContent) appContent.style.display = 'block';
+                    if (loginModal) loginModal.style.display = 'none';
+                    if (signupModal) signupModal.style.display = 'none';
+
+                    // Update user greeting and show logout button
+                    if (this.user) {
+                        if (userGreeting) {
+                            userGreeting.textContent = `Hello, ${this.user.name || 'User'}`;
+                            userGreeting.style.display = 'block';
+                        }
+                    }
+                    
+                    if (logoutBtn) {
+                        logoutBtn.style.display = 'flex';
+                    }
+
+                    // Initialize the rest of the app
+                    if (typeof initializeApp === 'function') {
+                        initializeApp();
+                    }
+                    if (typeof updateMemberCount === 'function') {
+                        updateMemberCount();
+                    }
+                } else {
+                    // Show login modal and hide app content
+                    if (appContent) appContent.style.display = 'none';
+                    if (loginModal) loginModal.style.display = 'flex';
+
+                    // Clear any existing user data
+                    if (userGreeting) {
+                        userGreeting.textContent = '';
+                        userGreeting.style.display = 'none';
+                    }
+                    if (logoutBtn) {
+                        logoutBtn.style.display = 'none';
+                    }
+                }
+            },
+
+            // Login
+            async login(email, password) {
+                try {
+                    // Clear any previous auth data
+                    this.user = null;
+                    this.isAuthenticated = false;
+                    
+                    // Call the auth service
+                    this.user = await authService.login(email, password);
+            this.isAuthenticated = true;
+            
+            // Update UI to reflect logged-in state
+            this.updateUI();
+            
+            // Show success message
+            showStatus('Login successful!', 'success');
+            
+            // Initialize app data
+            initializeApp();
+            
+            return true;
+        } catch (error) {
+            // Clear auth data on error
+            this.user = null;
+            this.isAuthenticated = false;
+            this.updateUI();
+            
+            // Show error message
+            showStatus(error.message || 'Login failed. Please try again.', 'error');
+            
+            // Re-throw the error to be handled by the form submission
+            throw error;
+        }
+    },
+
+    // Signup
+    async signup(userData) {
+        try {
+            this.user = await authService.signup(userData);
+            this.isAuthenticated = true;
+            this.updateUI();
+            showStatus('Account created successfully!', 'success');
+            return true;
+        } catch (error) {
+            showStatus(error.message || 'Signup failed', 'error');
+            return false;
+        }
+    },
+
+    // Logout
+    async logout() {
+        try {
+            // Call the auth service to clean up
+            await authService.logout();
+            
+            // Clear local state
+            this.user = null;
+            this.isAuthenticated = false;
+            
+            // Clear any app-specific data
+            // Example: this.members = [];
+            
+            // Update UI to reflect logged out state
+            this.updateUI();
+            
+            // Show login modal
+            const loginModal = document.getElementById('loginModal');
+            if (loginModal) {
+                loginModal.style.display = 'flex';
+                document.body.classList.add('modal-open');
+            }
+            
+            // Show logged out message
+            showStatus('You have been logged out', 'info');
+            
+        } catch (error) {
+            console.error('Logout error:', error);
+            showStatus('Error during logout', 'error');
+        }
+    }
+};
+
+// Navigation
+function showPage(pageId) {
+    try {
+        // Hide all pages
+        const pages = document.querySelectorAll('.page');
+        if (!pages || pages.length === 0) {
+            console.warn('No pages found');
+            return;
         }
 
-        // Update retry count
-        function updateRetryCount(delta) {
-            const current = parseInt(document.getElementById('retryCount').textContent);
-            const newCount = Math.max(1, Math.min(10, current + delta));
-            document.getElementById('retryCount').textContent = newCount;
-            appState.retryCount = newCount;
+        pages.forEach(page => {
+            page?.classList?.remove('active');
+        });
 
-            // API call would go here
-            console.log('Updated retry count to:', newCount);
+        // Show selected page
+        const activePage = document.getElementById(pageId);
+        if (activePage) {
+            activePage.classList.add('active');
+        } else {
+            console.warn(`Page with ID '${pageId}' not found`);
+        }
+    } catch (error) {
+        console.error('Error in showPage:', error);
+    }
+
+    // Update retry count UI
+    function updateRetryCount(delta) {
+        const input = document.getElementById('retryCountInput');
+        if (!input) return;
+
+        let current = parseInt(input.value) || 0;
+        let newValue = current + delta;
+
+        if (newValue >= 1 && newValue <= 10) { // Limit between 1 and 10
+            input.value = newValue;
+            // Auto-submit the form when using +/-
+            document.getElementById('retryCountForm').dispatchEvent(new Event('submit'));
         }
 
         // Update language
@@ -645,105 +2061,884 @@
             console.log('Updated language to:', language);
         }
 
-        // Select member for medication details
+        // Select member
         function selectMember(memberId) {
-            console.log('Selected member:', memberId);
-            showPage('medications');
-            document.getElementById('memberSelect').value = `Member ${memberId}`;
-        }
+            try {
+                // Hide all pages
+                const pages = document.querySelectorAll('.page');
+                if (!pages || pages.length === 0) {
+                    console.warn('No pages found');
+                    return;
+                }
 
-        // Add new member
-        function addMember() {
-            const newMemberId = appState.members.length + 1;
-            appState.members.push({ id: newMemberId, name: `Member ${newMemberId}` });
-
-            // Update UI
-            document.getElementById('memberCount').textContent = appState.members.length;
-
-            // Add to member list
-            const memberList = document.getElementById('memberList');
-            const memberCard = document.createElement('div');
-            memberCard.className = 'member-card';
-            memberCard.onclick = () => selectMember(newMemberId);
-            memberCard.innerHTML = `
-                <span class="member-name">Member ${newMemberId}</span>
-                <span class="arrow">></span>
-            `;
-            memberList.appendChild(memberCard);
-        }
-
-        // Toggle time chip
-        function toggleTime(chip) {
-            chip.classList.toggle('active');
-        }
-
-        // Save medication
-        function saveMedication() {
-            const medication = {
-                member: document.getElementById('memberSelect').value,
-                name: document.getElementById('medicationName').value,
-                dosage: document.getElementById('dosage').value,
-                times: Array.from(document.querySelectorAll('.time-chip.active')).map(chip => chip.textContent)
-            };
-
-            if (medication.name && medication.dosage && medication.times.length > 0) {
-                appState.medications.push(medication);
-                console.log('Saved medication:', medication);
-
-                // Clear form
-                document.getElementById('medicationName').value = '';
-                document.getElementById('dosage').value = '';
-                document.querySelectorAll('.time-chip').forEach(chip => {
-                    chip.classList.remove('active');
+                pages.forEach(page => {
+                    page?.classList?.remove('active');
                 });
 
-                alert('Medication saved successfully!');
-            } else {
-                alert('Please fill in all fields and select at least one time.');
-            }
-        }
-
-        // Toggle switch
-        function toggleSwitch(toggle) {
-            toggle.classList.toggle('active');
-        }
-
-        // Initialize app
-        document.addEventListener('DOMContentLoaded', function () {
-            // Set up event source for real-time updates (would connect to backend)
-            // const eventSource = new EventSource('http://localhost:3000/api/events/stream');
-            // eventSource.onmessage = function(event) {
-            //     const data = JSON.parse(event.data);
-            //     updateCallStatus(data);
-            // };
-
-            console.log('Eldora app initialized');
-        });
-
-        // Simulated API functions for backend integration
-        async function updateMemberCount() {
-            try {
-                // const response = await fetch('http://localhost:3000/api/family-members');
-                // const members = await response.json();
-                // document.getElementById('memberCount').textContent = members.length;
-                console.log('Member count updated');
+                // Show selected page
+                const activePage = document.getElementById(pageId);
+                if (activePage) {
+                    activePage.classList.add('active');
+                } else {
+                    console.warn(`Page with ID '${pageId}' not found`);
+                }
             } catch (error) {
-                console.error('Error updating member count:', error);
+                console.error('Error in showPage:', error);
             }
-        }
 
-        async function updateRetryCountAPI(count) {
-            try {
-                // await fetch('http://localhost:3000/api/settings/retry-count', {
-                //     method: 'PUT',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify({ retryCount: count })
-                // });
-                console.log('Retry count updated in backend:', count);
-            } catch (error) {
-                console.error('Error updating retry count:', error);
-            }
-        }
+            // Update retry count UI
+            function updateRetryCount(delta) {
+                const input = document.getElementById('retryCountInput');
+                if (!input) return;
+
+                let current = parseInt(input.value) || 0;
+                let newValue = current + delta;
+
+                if (newValue >= 1 && newValue <= 10) { // Limit between 1 and 10
+                    input.value = newValue;
+                    // Auto-submit the form when using +/-
+                    document.getElementById('retryCountForm').dispatchEvent(new Event('submit'));
+                }
+
+                // Update language
+                function updateLanguage() {
+                    const language = document.getElementById('languageSelect').value;
+                    appState.language = language;
+                    console.log('Updated language to:', language);
+                }
+
+                // Select member
+                function selectMember(memberId) {
+                    try {
+                        if (!memberId) {
+                            console.warn('No memberId provided to selectMember');
+                            return;
+                        }
+
+                        console.log('Selecting member:', memberId);
+
+                        // Remove active class from all member cards
+                        const memberCards = document.querySelectorAll('.member-card');
+                        if (memberCards && memberCards.length > 0) {
+                            memberCards.forEach(card => {
+                                if (card && card.classList) {
+                                    card.classList.remove('active');
+                                }
+                            });
+                        } else {
+                            console.warn('No member cards found');
+                        }
+
+                        // Add active class to selected member
+                        const selectedCard = document.querySelector(`.member-card[data-member-id="${memberId}"]`);
+                        if (!selectedCard) {
+                            console.error(`No member card found with ID: ${memberId}`);
+                            return;
+                        }
+
+                        selectedCard.classList.add('active');
+                        console.log('Selected member card:', selectedCard);
+
+                        // Update the form with member's info
+                        const memberNameInput = document.getElementById('memberName');
+                        const memberRelationSelect = document.getElementById('memberRelation');
+
+                        const memberName = selectedCard.querySelector('.member-name')?.textContent || '';
+                        const memberRelation = (selectedCard.querySelector('.member-relation')?.textContent || '').toLowerCase() || 'self';
+
+                        console.log('Updating form with:', { memberName, memberRelation });
+
+                        if (memberNameInput) {
+                            memberNameInput.value = memberName.trim();
+                        } else {
+                            console.warn('memberNameInput not found');
+                        }
+
+                        if (memberRelationSelect) {
+                            if (memberRelationSelect.querySelector(`option[value="${memberRelation}"]`)) {
+                                memberRelationSelect.value = memberRelation;
+                            } else {
+                                console.warn(`Invalid relation value: ${memberRelation}, defaulting to 'self'`);
+                                memberRelationSelect.value = 'self';
+                            }
+                        } else {
+                            console.warn('memberRelationSelect not found');
+                        }
+
+                        // Store selected member ID in app state
+                        appState.selectedMemberId = memberId;
+
+                        // Refresh the medications list for the selected member
+                        fetchAndDisplayMedications();
+                    } catch (error) {
+                        console.error('Error in selectMember:', error);
+                    }
+
+                    // Add new member
+                    function addMember() {
+                        try {
+                            // Prompt for member name
+                            const memberName = prompt("Enter member's name:");
+                            if (!memberName || memberName.trim() === '') {
+                                showStatus('Member name cannot be empty', 'error');
+                                return; // User cancelled or entered empty name
+                            }
+
+                            // Prompt for relation
+                            const relation = prompt("Enter relation (self, spouse, child, parent, other):", "other").toLowerCase();
+                            const validRelations = ['self', 'spouse', 'child', 'parent', 'other'];
+                            const memberRelation = validRelations.includes(relation) ? relation : 'other';
+
+                            const newMemberId = Date.now().toString(); // Use timestamp for unique ID
+                            const newMember = {
+                                id: newMemberId,
+                                name: memberName.trim(),
+                                relation: memberRelation
+                            };
+
+                            // Add to app state
+                            appState.members.push(newMember);
+
+                            // Create new member card
+                            const memberList = document.getElementById('memberList');
+                            if (!memberList) {
+                                console.error('Member list container not found');
+                                return;
+                            }
+
+                            const newMemberCard = document.createElement('div');
+                            newMemberCard.className = 'member-card';
+                            newMemberCard.dataset.memberId = newMemberId;
+                            newMemberCard.onclick = () => selectMember(newMemberId);
+
+                            const relationDisplay = memberRelation.charAt(0).toUpperCase() + memberRelation.slice(1);
+
+                            newMemberCard.innerHTML = `
+                    <div class="member-info">
+                        <span class="member-name">${newMember.name}</span>
+                        <span class="member-relation">${relationDisplay}</span>
+                    </div>
+                    <span class="arrow">></span>
+                `;
+
+                            // Find the add button within the member list
+                            const addButton = memberList.querySelector('.primary-button');
+
+                            // If add button is found and is a child of memberList, insert before it
+                            if (addButton && addButton.parentNode === memberList) {
+                                memberList.insertBefore(newMemberCard, addButton);
+                            } else {
+                                // Otherwise, just append to the list
+                                memberList.appendChild(newMemberCard);
+                            }
+
+                            // Select the new member
+                            selectMember(newMemberId);
+
+                            // Update member count
+                            updateMemberCount();
+
+                            showStatus('Member added successfully', 'success');
+
+                        } catch (error) {
+                            console.error('Error in addMember:', error);
+                            showStatus('Failed to add member. Please try again.', 'error');
+                        }
+
+                        // Toggle time chip
+                        function toggleTime(chip) {
+                            chip.classList.toggle('active');
+                        }
+
+                        // Save medication
+                        function saveMedication() {
+                            // Get selected member
+                            const selectedMemberCard = document.querySelector('.member-card.active');
+                            if (!selectedMemberCard) {
+                                showStatus('Please select a family member first', 'error');
+                                return;
+                            }
+
+                            // Get member info
+                            const memberId = selectedMemberCard.dataset.memberId;
+                            if (!memberId) {
+                                showStatus('Invalid member selected', 'error');
+                                return;
+                            }
+
+                            const memberName = selectedMemberCard.querySelector('.member-name')?.textContent.trim() || 'Member';
+                            const memberRelation = selectedMemberCard.querySelector('.member-relation')?.textContent.trim().toLowerCase() || 'self';
+
+                            // Get medication details
+                            const medicationName = document.getElementById('medicationName')?.value.trim();
+                            const dosage = document.getElementById('dosage')?.value.trim() || 'As directed';
+                            const selectedTimes = Array.from(document.querySelectorAll('.time-chip.active')).map(chip => chip.textContent.trim());
+
+                            // Validate required fields
+                            if (!medicationName) {
+                                showStatus('Please enter a medication name', 'error');
+                                return;
+                            }
+
+                            if (selectedTimes.length === 0) {
+                                showStatus('Please select at least one reminder time', 'error');
+                                return;
+                            }
+
+                            // Ensure member is in appState
+                            const existingMember = appState.members.find(m => m.id === memberId);
+                            if (!existingMember) {
+                                appState.members.push({
+                                    id: memberId,
+                                    name: memberName,
+                                    relation: memberRelation
+                                });
+                            }
+
+                            // Prepare medication data
+                            const medication = {
+                                name: medicationName,
+                                memberId: memberId,
+                                times: selectedTimes,
+                                dosage: dosage,
+                                memberName: memberName,
+                                memberRelation: memberRelation,
+                                addedAt: new Date().toISOString()
+                            };
+
+                            console.log('Saving medication:', medication);
+
+                            // Show loading state
+                            const saveButton = document.querySelector('button[onclick="saveMedication()"]');
+                            const originalButtonText = saveButton?.textContent || 'Save';
+                            if (saveButton) {
+                                saveButton.disabled = true;
+                                saveButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                            }
+
+                            saveMedicationToBackend(medication)
+                                .then(() => {
+                                    // Reset form (preserve member info)
+                                    document.getElementById('medicationName').value = '';
+                                    document.getElementById('dosage').value = '';
+                                    document.querySelectorAll('.time-chip').forEach(chip => chip.classList.remove('active'));
+
+                                    // Show success message
+                                    showStatus('Medication saved successfully!', 'success');
+
+                                    // Refresh medications list
+                                    return fetchAndDisplayMedications();
+                                })
+                                .catch(error => {
+                                    console.error('Error saving medication:', error);
+                                    showStatus(`Error: ${error.message || 'Failed to save medication'}`, 'error');
+                                    throw error; // Re-throw to allow further error handling
+                                })
+                                .finally(() => {
+                                    // Reset button state
+                                    if (saveButton) {
+                                        saveButton.disabled = false;
+                                        saveButton.textContent = originalButtonText;
+                                    }
+                                });
+                        }
+
+                        // Toggle switch
+                        function toggleSwitch(toggle) {
+                            toggle.classList.toggle('active');
+                        }
+
+                        // Initialize modals
+                        function initModals() {
+                            // Close modals when clicking the close button
+                            document.querySelectorAll('.modal .close').forEach(closeBtn => {
+                                closeBtn.addEventListener('click', function () {
+                                    this.closest('.modal').style.display = 'none';
+                                });
+                            });
+
+                            // Close modal when clicking outside the modal content
+                            window.addEventListener('click', function (event) {
+                                if (event.target.classList.contains('modal')) {
+                                    event.target.style.display = 'none';
+                                }
+                            });
+                        }
+
+                        // Toggle password visibility with animation
+                        function togglePasswordVisibility(input, button) {
+                            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                            const icon = button.querySelector('i');
+
+                            // Add animation class
+                            icon.style.transition = 'transform 0.3s ease';
+                            icon.style.transform = 'scale(0.8)';
+
+                            // Toggle after a short delay for better UX
+                            setTimeout(() => {
+                                input.setAttribute('type', type);
+                                icon.classList.toggle('fa-eye');
+                                icon.classList.toggle('fa-eye-slash');
+                                icon.style.transform = 'scale(1)';
+
+                                // Remove transform after animation
+                                setTimeout(() => {
+                                    icon.style.transition = '';
+                                    icon.style.transform = '';
+                                }, 300);
+                            }, 100);
+                        }
+
+                        // Show form error with animation
+                        function showError(elementId, message) {
+                            const errorElement = document.getElementById(elementId);
+                            if (errorElement) {
+                                // Cancel any pending hide timeout
+                                if (errorElement._hideTimeout) {
+                                    clearTimeout(errorElement._hideTimeout);
+                                }
+
+                                // Add shake animation to input
+                                const input = errorElement.previousElementSibling?.querySelector('input');
+                                if (input) {
+                                    input.classList.add('error');
+                                    input.style.animation = 'shake 0.5s';
+                                    input.addEventListener('animationend', function onAnimationEnd() {
+                                        input.style.animation = '';
+                                        input.removeEventListener('animationend', onAnimationEnd);
+                                    });
+                                }
+
+                                // Show error message
+                                errorElement.textContent = message;
+                                errorElement.classList.add('show');
+
+                                // Auto-hide error after 5 seconds
+                                errorElement._hideTimeout = setTimeout(() => {
+                                    errorElement.classList.remove('show');
+                                    errorElement._hideTimeout = null;
+                                }, 5000);
+                            }
+                        }
+
+                        // Clear form error
+                        function clearError(elementId) {
+                            const errorElement = document.getElementById(elementId);
+                            if (errorElement) {
+                                errorElement.textContent = '';
+                                errorElement.classList.remove('show');
+                            }
+                        }
+
+                        // Initialize authentication event listeners
+                        function initAuthEventListeners() {
+                            // Password visibility toggle
+                            const togglePasswordBtns = document.querySelectorAll('.toggle-password');
+                            togglePasswordBtns.forEach(btn => {
+                                btn.addEventListener('click', function () {
+                                    const input = this.parentElement.querySelector('input');
+                                    togglePasswordVisibility(input, this);
+                                });
+                            });
+
+                            // Form input validation
+                            const loginEmail = document.getElementById('loginEmail');
+                            const loginPassword = document.getElementById('loginPassword');
+
+                            if (loginEmail) {
+                                loginEmail.addEventListener('input', () => {
+                                    clearError('emailError');
+                                    loginEmail.classList.remove('error');
+                                });
+                            }
+
+                            if (loginPassword) {
+                                loginPassword.addEventListener('input', () => {
+                                    clearError('passwordError');
+                                    loginPassword.classList.remove('error');
+                                });
+                            }
+
+                            // Login form submission
+                            const loginForm = document.getElementById('loginForm');
+                            if (loginForm) {
+                                loginForm.addEventListener('submit', async function (e) {
+                                    e.preventDefault();
+
+                                    const email = document.getElementById('loginEmail').value.trim();
+                                    const password = document.getElementById('loginPassword').value;
+                                    const loginBtn = loginForm.querySelector('button[type="submit"]');
+                                    const originalBtnText = loginBtn.innerHTML;
+
+                                    // Clear previous errors
+                                    clearError('emailError');
+                                    clearError('passwordError');
+                                    loginEmail.classList.remove('error');
+                                    loginPassword.classList.remove('error');
+
+                                    // Basic validation
+                                    let hasError = false;
+                                    if (!email) {
+                                        showError('emailError', 'Email is required');
+                                        loginEmail.classList.add('error');
+                                        loginEmail.focus();
+                                        hasError = true;
+                                    } else if (!/\S+@\S+\.\S+/.test(email)) {
+                                        showError('emailError', 'Please enter a valid email address');
+                                        loginEmail.classList.add('error');
+                                        loginEmail.focus();
+                                        hasError = true;
+                                    }
+
+                                    if (!password) {
+                                        showError('passwordError', 'Password is required');
+                                        loginPassword.classList.add('error');
+                                        if (!hasError) loginPassword.focus();
+                                        hasError = true;
+                                    } else if (password.length < 6) {
+                                        showError('passwordError', 'Password must be at least 6 characters');
+                                        loginPassword.classList.add('error');
+                                        if (!hasError) loginPassword.focus();
+                                        hasError = true;
+                                    }
+
+                                    if (hasError) return;
+
+                                    try {
+                                        // Show loading state
+                                        loginBtn.disabled = true;
+                                        loginBtn.innerHTML = '<span class="spinner"></span> Logging in...';
+
+                                        // Call appState.login which handles the API call and state management
+                                        const loginSuccess = await appState.login(email, password);
+
+                                        if (loginSuccess) {
+                                            // Add a slight delay for the success message to be visible
+                                            await new Promise(resolve => setTimeout(resolve, 1000));
+                                            
+                                            // Close the modal with a smooth transition
+                                            const loginModal = document.getElementById('loginModal');
+                                            if (loginModal) {
+                                                loginModal.style.display = 'none';
+                                                document.body.classList.remove('modal-open');
+                                            }
+                                            
+                                            // Show home page
+                                            showPage('home');
+                                        }
+                                    } catch (error) {
+                                        // Error is already handled by appState.login
+                                        console.error('Login error:', error);
+                                    } finally {
+                                        // Reset button state
+                                        loginBtn.disabled = false;
+                                        loginBtn.innerHTML = originalText;
+                                    }
+                                });
+                            }
+
+                            // Signup form submission
+                            const signupForm = document.getElementById('signupForm');
+                            if (signupForm) {
+                                signupForm.addEventListener('submit', async function (e) {
+                                    e.preventDefault();
+
+                                    const name = document.getElementById('signupName').value.trim();
+                                    const email = document.getElementById('signupEmail').value.trim();
+                                    const password = document.getElementById('signupPassword').value;
+                                    const confirmPassword = document.getElementById('confirmPassword').value;
+
+                                    // Validate inputs
+                                    if (!name || !email || !password || !confirmPassword) {
+                                        showStatus('Please fill in all fields', 'error');
+                                        return;
+                                    }
+
+                                    if (password !== confirmPassword) {
+                                        showStatus('Passwords do not match', 'error');
+                                        return;
+                                    }
+
+                                    if (password.length < 6) {
+                                        showStatus('Password must be at least 6 characters long', 'error');
+                                        return;
+                                    }
+
+                                    const signupBtn = signupForm.querySelector('button[type="submit"]');
+                                    const originalText = signupBtn.textContent;
+
+                                    try {
+                                        // Show loading state
+                                        signupBtn.disabled = true;
+                                        signupBtn.innerHTML = '<span class="spinner"></span> Creating account...';
+
+                                        await appState.signup({ name, email, password });
+                                    } finally {
+                                        // Reset button state
+                                        signupBtn.disabled = false;
+                                        signupBtn.textContent = originalText;
+                                    }
+                                });
+                            }
+
+                            // Toggle between login and signup forms
+                            document.getElementById('showSignup')?.addEventListener('click', function (e) {
+                                e.preventDefault();
+                                document.getElementById('loginModal').style.display = 'none';
+                                document.getElementById('signupModal').style.display = 'flex';
+                            });
+
+                            document.getElementById('showLogin')?.addEventListener('click', function (e) {
+                                e.preventDefault();
+                                document.getElementById('signupModal').style.display = 'none';
+                                document.getElementById('loginModal').style.display = 'flex';
+                            });
+
+                            // Logout button
+                            const logoutBtn = document.getElementById('logoutBtn');
+                            if (logoutBtn) {
+                                logoutBtn.addEventListener('click', function (e) {
+                                    e.preventDefault();
+                                    appState.logout();
+                                });
+                            }
+
+                            // Initialize app functionality
+                            function initializeApp() {
+                                // Initialize language settings
+                                updateLanguage();
+
+                                // Initialize member count
+                                updateMemberCount();
+
+                                // Select first member by default
+                                const firstMemberCard = document.querySelector('.member-card');
+                                if (firstMemberCard) {
+                                    firstMemberCard.classList.add('active');
+                                }
+
+                                fetchAndDisplayMedications();
+
+                                // Set up retry count form
+                                const retryCountForm = document.getElementById('retryCountForm');
+                                if (retryCountForm) {
+                                    retryCountForm.addEventListener('submit', handleRetryCountUpdate);
+                                }
+                            }
+
+                            // Initialize the app
+                            document.addEventListener('DOMContentLoaded', function () {
+                                // Initialize auth state
+                                appState.initAuth();
+
+                                // Initialize modals
+                                initModals();
+
+                                // Initialize auth event listeners
+                                initAuthEventListeners();
+
+                                console.log('Eldora app initialized');
+
+                                // Initialize the rest of the app if authenticated
+                                if (appState.isAuthenticated) {
+                                    initializeApp();
+                                    updateMemberCount();
+                                }
+                            });
+
+                            // Update member count
+                            async function updateMemberCount() {
+                                const memberCountElement = document.getElementById('memberCount');
+                                if (!memberCountElement) return;
+
+                                try {
+                                    const memberCards = document.querySelectorAll('.member-card[data-member-id]');
+                                    memberCountElement.textContent = memberCards.length;
+
+                                    // Update appState.members to match the current DOM
+                                    appState.members = Array.from(memberCards).map(card => ({
+                                        id: card.dataset.memberId,
+                                        name: card.querySelector('.member-name')?.textContent || 'Member',
+                                        relation: (card.querySelector('.member-relation')?.textContent || 'other').toLowerCase()
+                                    }));
+                                } catch (error) {
+                                    console.error('Error updating member count:', error);
+                                    memberCountElement.textContent = 'Error';
+                                    showStatus('Failed to update member count', 'error');
+                                }
+                            }
+
+                            // Handle retry count form submission
+                            async function handleRetryCountUpdate(event) {
+                                event.preventDefault();
+                                if (!retryCountInput) return;
+
+                                const count = parseInt(retryCountInput.value);
+                                if (isNaN(count) || count < 0) {
+                                    showStatus('Please enter a valid number', 'error');
+                                    return;
+                                }
+
+                                try {
+                                    await updateRetryCountAPI(count);
+                                    showStatus('Retry count updated successfully!', 'success');
+                                } catch (error) {
+                                    console.error('Error updating retry count:', error);
+                                    showStatus('Failed to update retry count', 'error');
+                                }
+                            }
+
+                            // Update retry count via API
+                            async function updateRetryCountAPI(count) {
+                                const response = await fetch('http://localhost:3000/api/settings/retry-count', {
+                                    method: 'PUT',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        // Add authorization header if needed
+                                        // 'Authorization': `Bearer ${yourAuthToken}`
+                                    },
+                                    body: JSON.stringify({ retryCount: count })
+                                });
+
+                                if (!response.ok) {
+                                    const error = await response.json().catch(() => ({}));
+                                    throw new Error(error.message || 'Failed to update retry count');
+                                }
+
+                                return await response.json();
+                            }
+
+                            // Show status message
+                            function showStatus(message, type = 'info') {
+                                let statusElement = document.getElementById('statusMessage');
+
+                                // Create status element if it doesn't exist
+                                if (!statusElement) {
+                                    statusElement = document.createElement('div');
+                                    statusElement.id = 'statusMessage';
+                                    document.body.appendChild(statusElement);
+
+                                    // Add styles
+                                    const style = document.createElement('style');
+                                    style.textContent = `
+                    #statusMessage {
+                        position: fixed;
+                        bottom: 20px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        padding: 12px 24px;
+                        border-radius: 8px;
+                        color: white;
+                        font-weight: 500;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                        z-index: 1000;
+                        opacity: 0;
+                        transition: opacity 0.3s ease-in-out;
+                        max-width: 90%;
+                        text-align: center;
+                    }
+                    .status-success { background-color: #10B981; }
+                    .status-error { background-color: #EF4444; }
+                    .status-info { background-color: #3B82F6; }
+                    .status-warning { background-color: #F59E0B; }
+                    .show { opacity: 1; }
+                `;
+                                    document.head.appendChild(style);
+                                }
+
+                                // Update and show message
+                                statusElement.textContent = message;
+                                statusElement.className = `status-message status-${type}`;
+                                statusElement.classList.add('show');
+
+                                // Clear any existing timeout
+                                if (window.statusTimeout) {
+                                    clearTimeout(window.statusTimeout);
+                                }
+
+                                // Auto-hide after delay
+                                window.statusTimeout = setTimeout(() => {
+                                    statusElement.classList.remove('show');
+                                }, 5000);
+                            }
+
+                            // Get auth token from localStorage
+                            function getAuthToken() {
+                                return localStorage.getItem('authToken') || '';
+                            }
+
+                            // Get currently selected member ID
+                            function getSelectedMemberId() {
+                                const activeCard = document.querySelector('.member-card.active');
+                                return activeCard ? activeCard.dataset.memberId : null;
+                            }
+
+                            // Fetch and display medications
+                            async function fetchAndDisplayMedications() {
+                                const container = document.getElementById('medicationsList');
+                                if (!container) return;
+
+                                // Show loading state
+                                container.innerHTML = `
+                <div class="loading-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span>Loading medications...</span>
+                </div>
+            `;
+
+                                try {
+                                    const response = await fetch('http://localhost:3000/api/v1/medications');
+
+                                    if (!response.ok) {
+                                        let errorMessage = `Server error (${response.status})`;
+                                        try {
+                                            const errorData = await response.json();
+                                            errorMessage = errorData.message || errorData.error || errorMessage;
+                                        } catch (e) {
+                                            // If we can't parse JSON, use the status text
+                                            errorMessage = response.statusText || errorMessage;
+                                        }
+                                        throw new Error(errorMessage);
+                                    }
+
+                                    let medications = await response.json();
+
+                                    // Ensure we have an array
+                                    if (!Array.isArray(medications)) {
+                                        console.warn('Expected array of medications, got:', medications);
+                                        medications = [];
+                                    }
+
+                                    // Filter medications by selected member if any member is selected
+                                    const selectedMemberId = getSelectedMemberId();
+                                    if (selectedMemberId) {
+                                        medications = medications.filter(med => med.memberId === selectedMemberId);
+                                    }
+
+                                    // Display appropriate message if no medications
+                                    if (medications.length === 0) {
+                                        const noMedsMessage = selectedMemberId
+                                            ? 'No medications found for this member'
+                                            : 'No medications added yet';
+                                        container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-pills"></i>
+                            <p>${noMedsMessage}</p>
+                            <button class="primary-button" onclick="document.getElementById('addMedicationBtn')?.click()">
+                                <i class="fas fa-plus"></i> Add Medication
+                            </button>
+                        </div>
+                    `;
+                                        return;
+                                    }
+
+                                    container.innerHTML = '';
+                                    medications.forEach(med => {
+                                        const medElement = document.createElement('div');
+                                        medElement.className = 'medication-item';
+
+                                        // Format member info
+                                        let memberDisplay = '';
+                                        if (med.memberName) {
+                                            memberDisplay = med.memberName;
+                                            if (med.memberRelation && med.memberRelation !== 'self') {
+                                                memberDisplay += ` (${med.memberRelation.charAt(0).toUpperCase() + med.memberRelation.slice(1)})`;
+                                            }
+                                        }
+
+                                        // Format added date
+                                        const addedDate = med.addedAt ? new Date(med.addedAt) : new Date();
+                                        const formattedDate = addedDate.toLocaleDateString('en-US', {
+                                            year: 'numeric',
+                                            month: 'short',
+                                            day: 'numeric',
+                                            hour: '2-digit',
+                                            minute: '2-digit'
+                                        });
+
+                                        medElement.innerHTML = `
+                        <div class="medication-header">
+                            <div class="medication-name">${med.name || 'Unnamed Medication'}</div>
+                            <div class="medication-dosage">${med.dosage || 'As directed'}</div>
+                        </div>
+                        <div class="medication-details">
+                            <div class="medication-member">
+                                <i class="fas fa-user"></i> ${memberDisplay || 'Unknown Member'}
+                            </div>
+                            <div class="medication-date">
+                                <i class="far fa-calendar-alt"></i> ${formattedDate}
+                            </div>
+                        </div>
+                        ${med.times && med.times.length > 0 ? `
+                            <div class="medication-times">
+                                ${med.times.map(time => `<span class="time-badge"><i class="far fa-clock"></i> ${time}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                    `;
+                                        container.appendChild(medElement);
+                                    });
+
+                                } catch (error) {
+                                    console.error('Error fetching medications:', error);
+                                    const container = document.getElementById('medicationsList');
+                                    if (container) {
+                                        container.innerHTML = `
+                        <div class="no-medications">
+                            Error loading medications. Please try again later.
+                        </div>`;
+                                    }
+                                }
+                            }
+
+                            async function saveMedicationToBackend(medication) {
+                                try {
+                                    console.log('Saving medication:', medication);
+
+                                    // Ensure required fields are present
+                                    if (!medication.name || !medication.memberId || !medication.times || medication.times.length === 0) {
+                                        const missingFields = [];
+                                        if (!medication.name) missingFields.push('name');
+                                        if (!medication.memberId) missingFields.push('memberId');
+                                        if (!medication.times || medication.times.length === 0) missingFields.push('at least one time');
+
+                                        throw new Error(`Missing required fields: ${missingFields.join(', ')}`);
+                                    }
+
+                                    const response = await fetch('http://localhost:3000/api/v1/medications', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'Accept': 'application/json',
+                                            'Authorization': `Bearer ${getAuthToken()}`
+                                        },
+                                        body: JSON.stringify(medication)
+                                    });
+
+                                    let responseData;
+                                    try {
+                                        responseData = await response.json();
+                                    } catch (e) {
+                                        console.error('Failed to parse response:', e);
+                                        throw new Error('Invalid response from server');
+                                    }
+
+                                    if (!response.ok) {
+                                        const errorMessage = responseData.error || responseData.message ||
+                                            `Failed to save medication (${response.status} ${response.statusText})`;
+                                        console.error('Server error:', errorMessage, responseData);
+                                        throw new Error(errorMessage);
+                                    }
+
+                                    console.log('Medication saved successfully:', responseData);
+                                    showStatus('Medication saved successfully!', 'success');
+                                    return responseData;
+
+                                } catch (error) {
+                                    console.error('Error saving medication:', error);
+                                    showStatus(`Error: ${error.message}`, 'error');
+                                    throw error;
+                                }
+                            }
     </script>
 </body>
 
